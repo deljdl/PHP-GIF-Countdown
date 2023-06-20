@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 include 'GIFencode.class.php';
 
 
-$time = !empty($_GET['deadline']) ? $_GET['deadline'] : date('Y-m-d G:i:s', strtotime('+24 hours'));
+$time = !empty($_GET['deadline']) ? date('Y-m-d G:i:s', $_GET['deadline']) : date('Y-m-d G:i:s', strtotime('+24 hours'));
 $future_date = new DateTime(date('r',strtotime($time)));
 $time_now = time();
 $now = new DateTime(date('r', $time_now));
