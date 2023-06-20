@@ -1,10 +1,14 @@
 <?php
 
-date_default_timezone_set('Australia/Melbourne');
-include 'GIFEncoder.class.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
-$time = $_GET['time'];
+include 'GIFencode.class.php';
+
+
+$time = !empty($_GET['deadline']) ? $_GET['deadline'] : date('Y-m-d G:i:s', strtotime('+24 hours'));
 $future_date = new DateTime(date('r',strtotime($time)));
 $time_now = time();
 $now = new DateTime(date('r', $time_now));
@@ -17,11 +21,11 @@ $delays = array();
 $image = imagecreatefrompng('countdown.png');
 $delay = 100; // milliseconds
 $font = array(
-	'size'=>40,
+	'size'=>80,
 	'angle'=>0,
-	'x-offset'=>10,
-	'y-offset'=>70,
-	'file'=>'DIGITALDREAM.ttf',
+	'x-offset'=>65,
+	'y-offset'=>95,
+	'file'=>'arial.ttf',
 	'color'=>imagecolorallocate($image, 255, 255, 255),
 );
 for($i = 0; $i <= 60; $i++){
@@ -40,7 +44,7 @@ for($i = 0; $i <= 60; $i++){
 		break;
 	} else {
 		// Open the first source image and add the text.
-		$image = imagecreatefrompng('countdown.png');;
+		$image = imagecreatefrompng('countdown.png');
 		$text = $interval->format('%a:%H:%I:%S');
 		// %a is weird in that it doesn’t give you a two digit number
 		// check if it starts with a single digit 0-9
